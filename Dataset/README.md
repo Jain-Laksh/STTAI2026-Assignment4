@@ -26,7 +26,6 @@ The datasets contain 16 columns resulting from preprocessing. The target variabl
 | `SecurityDeposit` | Integer | Amount of security deposit required for renting the property in **INR**. |
 | `Status` | String / Categorical | Furnishing status of the property (e.g., Furnished, Unfurnished, Semi-Furnished). |
 | `Size_ft²` | Integer | Size of the house isolated into pure numerical square feet. |
-| `Price_per_sqft` | Float | Calculated feature: `price` divided by `Size_ft²` in INR, rounded to one decimal place. |
 | `BHK` | Integer (Binary) | Identifies the fundamental dwelling type category (`1` = BHK [Bedroom Hall Kitchen], `0` = RK [Room Kitchen]). |
 | `rooms_num` | Integer | Total count of rooms parsed from the original property type structure. |
 | `property_type` | String / Categorical | The classification of the property (e.g., Apartment, Independent House, Studio Apartment). |

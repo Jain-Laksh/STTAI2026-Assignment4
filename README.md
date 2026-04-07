@@ -31,14 +31,20 @@ You are provided with a dataset in the `Dataset` folder:
 **Goal:** Prove to the founders which optimization strategy gives the best "bang for buck" and systematically track all experimental runs.
 *   **Experiment Tracking:** You must explicitly initialize and utilize `trackio` in your notebook to track all evaluation metrics, parameter variations, and model versions systematically across your different experiments.
 *   **Preprocessing:** You must keep all features from the dataset for the final UI predictions. Create a preprocessing pipeline that converts string categorical variables (like `city`, `location`, `Status`, `property_type`) into numbers. You must strictly use `sklearn.preprocessing.LabelEncoder` or manual mapping and **save these mappings** so your frontend can use them later.
-*   **Optimization Comparison:** Using strictly `train.csv` and 5-fold Cross-Validation (`sklearn.model_selection.cross_val_score`), tune the hyperparameters of a **Random Forest Regressor** (`sklearn.ensemble.RandomForestRegressor`). You must strictly implement and compare:
+*   **Optimization Comparison:** Using strictly `train.csv` and 5-fold Cross-Validation tune the hyperparameters of a **Random Forest Regressor** (`sklearn.ensemble.RandomForestRegressor`). You must strictly implement and compare:
     1. **Grid Search** (using `sklearn.model_selection.GridSearchCV`)
     2. **Random Search** (using `sklearn.model_selection.RandomizedSearchCV`)
     3. **Bayesian Optimization** (using the `optuna` library, specifically creating a study with `optuna.create_study` and calling `.optimize`)
-*   **Search Space Definition:** You **must** restrict your hyperparameter search to the following bounds for all three methods. This ensures a fair comparison:
-    *   `n_estimators`: Integer values from `50` to `200`.
-    *   `max_depth`: Integer values from `10` to `30`.
-    *   `min_samples_split`: Integer values from `2` to `10`.
+*   **Search Space Definition:** You **must** define your search spaces as follows to ensure a fair 60-trial budgeted comparison:
+    *   **Grid Search Space (exactly 60 combinations):**
+        *   `n_estimators`: `[50, 100, 150, 200]`
+        *   `max_depth`: `[10, 15, 20, 25, 30]`
+        *   `min_samples_split`: `[2, 5, 8]`
+    *   **Random Search & Bayesian Optimization Space:**
+        *   Search across the full integer ranges between the min and max bounds (choose max iterations to 60-100):
+        *   `n_estimators`: Integer values from `50` to `200`
+        *   `max_depth`: Integer values from `10` to `30`
+        *   `min_samples_split`: Integer values from `2` to `10`
 *   **Evaluation & Plots:** You must generate and **save** (in the `plots/` folder) the following plots:
     1.  `trials_vs_error.png`: A line plot comparing the compute budget vs. the error. 
         *   **X-axis:** Number of iterations/trials.
